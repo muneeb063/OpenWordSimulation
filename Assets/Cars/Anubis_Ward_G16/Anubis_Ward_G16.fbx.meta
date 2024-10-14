@@ -3,7 +3,27 @@ guid: 018921f3f3b3ee74d97df3b8aa11d905
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Anubis_Ward_G16_Body
+    second: {fileID: 2100000, guid: 419aebfba4835d04ea561ce3e1462aff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_Anubis_Ward_G16_Body_Props
+    second: {fileID: 2100000, guid: 04a6e4544d3f3b148873cbe48e479112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_EX_15_Body_Props1
+    second: {fileID: 2100000, guid: c856c53d9a1ec784ca702e5946904c85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_X1-V_Body-Props9
+    second: {fileID: 2100000, guid: e9ab3002048848e4aa8814b95816a45b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
