@@ -38,7 +38,7 @@ public class RCC_Emission {
         //  If no renderer selected, return.
         if (!lightRenderer) {
 
-            Debug.LogError("No renderer selected for emission! Selected a renderer for this light, or disable emission.");
+            //Debug.LogError("No renderer selected for emission! Selected a renderer for this light, or disable emission.");
             return;
 
         }

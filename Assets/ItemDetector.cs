@@ -10,11 +10,6 @@ public class ItemDetector : MonoBehaviour
     [SerializeField] bool isOnItem = false;
     [SerializeField] Image pointer;
     public bool InOnItem { get=>isOnItem;}
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
