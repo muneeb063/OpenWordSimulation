@@ -68,7 +68,8 @@ public class InputControlSwitch : MonoBehaviour
     {
         rcc.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         ControllerDefaultState();
-        player.transform.position = rcc.transform.position + Vector3.left * 2.5f;
+        player.transform.position = rcc.transform.position + Vector3.left * 4.5f + Vector3.up;
+        player.transform.rotation = Quaternion.identity;
         if (setPlayer == SetPlayer.RCC) EnableFPC();
         Invoke(nameof(RemoveConstraints), 1.0f);
     }

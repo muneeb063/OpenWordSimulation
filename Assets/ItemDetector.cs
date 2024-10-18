@@ -10,12 +10,18 @@ public class ItemDetector : MonoBehaviour
     [SerializeField] bool isOnItem = false;
     [SerializeField] Image pointer;
     [SerializeField] private PickItemButton itemButton;
+    [SerializeField] private Transform pickUpParent;
+    [SerializeField] private GameObject inHandItem;
 
     RaycastHit hit;
     GameObject rayHitObject;
 
     public bool InOnItem { get => isOnItem; }
 
+    private void Start()
+    {
+        itemButton.GetComponent<Button>().onClick.AddListener(PickUpItem);
+    }
     //// Update is called once per frame
     //void Update()
     //{
@@ -36,12 +42,15 @@ public class ItemDetector : MonoBehaviour
 
     void Update()
     {
+       
+
         // Perform the raycast
         isOnItem = Physics.Raycast(transform.position, transform.forward, out hit, range, layerMask);
-
+        pointer.color = Color.white;
         // Debug line to visualize the ray
         // Debug.DrawRay(transform.position, transform.forward * range, Color.red);
-
+        if (inHandItem != null)
+            return;
         // Call ItemDetected with the raycast result
         ItemDetected(isOnItem);
 
@@ -92,9 +101,27 @@ public class ItemDetector : MonoBehaviour
                 rayHitObject = null;
             }
         }
-        void ItemDetected(bool isItem)
+    }
+
+    void ItemDetected(bool isItem)
+    {
+        itemButton.InteractButton(isItem);
+    }
+
+    void PickUpItem()
+    {
+        if(rayHitObject != null)
         {
-            itemButton.InteractButton(isItem);
+            rayHitObject.transform.parent = pickUpParent;
+            rayHitObject.transform.SetLocalPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
+            inHandItem = rayHitObject;
+            Outline previousOutlineComponent = rayHitObject.GetComponent<Outline>();
+            if (previousOutlineComponent != null)
+            {
+                previousOutlineComponent.enabled = false;
+            }
+            ItemDetected(false);
         }
+
     }
 }
