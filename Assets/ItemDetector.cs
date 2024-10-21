@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class ItemDetector : MonoBehaviour
     [SerializeField] private PickItemButton itemButton;
     [SerializeField] private Transform pickUpParent;
     [SerializeField] private GameObject inHandItem;
+    [SerializeField] private RectTransform dropButton;
 
     RaycastHit hit;
     GameObject rayHitObject;
@@ -21,6 +23,7 @@ public class ItemDetector : MonoBehaviour
     private void Start()
     {
         itemButton.GetComponent<Button>().onClick.AddListener(PickUpItem);
+        dropButton.GetComponent<Button>().onClick.AddListener(DropInHandItem);
     }
     //// Update is called once per frame
     //void Update()
@@ -113,15 +116,41 @@ public class ItemDetector : MonoBehaviour
         if(rayHitObject != null)
         {
             rayHitObject.transform.parent = pickUpParent;
-            rayHitObject.transform.SetLocalPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
+            rayHitObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             inHandItem = rayHitObject;
             Outline previousOutlineComponent = rayHitObject.GetComponent<Outline>();
             if (previousOutlineComponent != null)
             {
                 previousOutlineComponent.enabled = false;
             }
+            Rigidbody rb = inHandItem.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb.isKinematic = true;
             ItemDetected(false);
+            ButtonAnim(true);
         }
+    }
 
+    void DropInHandItem()
+    {
+        if (inHandItem != null)
+        {
+            inHandItem.transform.SetParent(null);
+            Rigidbody rb = inHandItem.GetComponent<Rigidbody>();
+            if (rb != null)
+                rb.isKinematic = false;
+
+            inHandItem = null;
+            ButtonAnim(false);
+        }
+    }
+    [SerializeField] private Vector2 showPos;
+    [SerializeField] private Vector2 hidePos;
+    void ButtonAnim(bool show)
+    {
+        if (show)
+            dropButton.DOAnchorPos(showPos, .25f);
+        else
+            dropButton.DOAnchorPos(hidePos, .25f);
     }
 }
