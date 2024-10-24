@@ -52,8 +52,17 @@ public class ItemDetector : MonoBehaviour
         pointer.color = Color.white;
         // Debug line to visualize the ray
         // Debug.DrawRay(transform.position, transform.forward * range, Color.red);
-        if (inHandItem != null)
-            return;
+        if(!InHandItem())
+            PickDrop();
+    }
+
+    bool InHandItem()
+    {
+        if (inHandItem != null) return true;
+        else return false;
+    }
+    void PickDrop()
+    {
         // Call ItemDetected with the raycast result
         ItemDetected(isOnItem);
 
